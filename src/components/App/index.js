@@ -9,6 +9,8 @@ import { CreateTodoButton } from '../CreateTodoButton/';
 import { Modal } from '../Modal/';
 import { useTodos } from '../hooks/useTodos';
 import { TodoLoading } from '../TodoLoading/';
+import { Error } from '../Error';
+import { EmpyTodos } from '../EmpyTodos';
 
   function App() {    
     const {
@@ -35,15 +37,15 @@ import { TodoLoading } from '../TodoLoading/';
       <TodoSearch 
         searchValue={searchValue}
         setSearchValue={setSearchValue}
-           />
-      <TodoList>
-        {error && <h1>404 hubo un error</h1>}
-        {loading && new Array(4).fill(0).map((_, index) => (
-          <TodoLoading/>
-        ))}
-
-        {(!loading && !searchedTodos.length) && <h1>Crea tu primer to do</h1>}
-        {searchedTodos.map(todo => (
+      />
+      <TodoList 
+        error={error}
+        loading={loading}
+        searchedTodos={searchedTodos}
+        onError={()=> <Error />}
+        onLoading={()=> <TodoLoading />}
+        onEmpty={()=> <EmpyTodos />}
+        render={(todo) => (
           <TodoItem
             key={todo.text}
             text={todo.text}
@@ -51,8 +53,8 @@ import { TodoLoading } from '../TodoLoading/';
             onComplete={() => completeTodo(todo.text)}
             onDelete={() => deleteTodo(todo.text)}
           />
-        ))}
-      </TodoList>
+        )}
+      />
       {
         !!openModal && (
           <Modal>
