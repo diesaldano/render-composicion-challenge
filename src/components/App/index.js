@@ -11,6 +11,9 @@ import { useTodos } from '../hooks/useTodos';
 import { TodoLoading } from '../TodoLoading/';
 import { Error } from '../Error';
 import { EmpyTodos } from '../EmpyTodos';
+import { EmptySearch } from '../EmptySearch';
+import { TodoHeader } from '../TodoHeader';
+import { ChangeAlertWithStorageListener } from '../ChangeAlert/';
 
   function App() {    
     const {
@@ -23,38 +26,50 @@ import { EmpyTodos } from '../EmpyTodos';
       deleteTodo,
       openModal,
       setOpenModal,
-      totalTodos, 
-      completedTodo,
-      addTodo
+      totalTodos,
+      completedTodos,
+      addTodo,
+      sincronizeTodos
     } = useTodos()
     
     return (
       <React.Fragment>
-      <TodoCounter 
-        totalTodos={totalTodos}  
-        completedTodo={completedTodo}
-      />
-      <TodoSearch 
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      />
-      <TodoList 
-        error={error}
-        loading={loading}
-        searchedTodos={searchedTodos}
-        onError={()=> <Error />}
-        onLoading={()=> <TodoLoading />}
-        onEmpty={()=> <EmpyTodos />}
-        render={(todo) => (
-          <TodoItem
-            key={todo.text}
-            text={todo.text}
-            completed={todo.completed}
-            onComplete={() => completeTodo(todo.text)}
-            onDelete={() => deleteTodo(todo.text)}
+        <TodoHeader loading={loading}>
+          <TodoCounter 
+            completedTodo={completedTodos}
+            totalTodos={totalTodos}
           />
-        )}
-      />
+          <TodoSearch 
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+
+        </TodoHeader>
+        <TodoList 
+          error={error}
+          loading={loading}
+          totalTodos={totalTodos}
+          searchedTodos={searchedTodos}
+          searchText={searchValue}
+          onError={()=> <Error />}
+          onLoading={()=> <TodoLoading />}
+          onEmpty={()=> <EmpyTodos />}
+          onEmptySearch={(searchText) => 
+            <EmptySearch searchText={searchText} />
+          }
+          render={(todo) => (
+            <TodoItem
+              key={todo.text}
+              text={todo.text}
+              completed={todo.completed}
+              onComplete={() => completeTodo(todo.text)}
+              onDelete={() => deleteTodo(todo.text)}
+            />
+          )}
+        />
+        <ChangeAlertWithStorageListener 
+          sincronizeTodos={sincronizeTodos}
+        />
       {
         !!openModal && (
           <Modal>

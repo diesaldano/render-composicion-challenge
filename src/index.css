@@ -1,12 +1,11 @@
 body {
   margin: 0;
   padding: 0;
-  background: #141E30;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: #F2F4F5;
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  background: #DE6262;  
+  background: -webkit-linear-gradient(to top, #FFB88C, #DE6262);  
+  background: linear-gradient(to top, #FFB88C, #DE6262); 
 }
 
 #root {

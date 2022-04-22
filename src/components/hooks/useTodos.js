@@ -7,6 +7,7 @@ function useTodos(props) {
     saveItem: saveTodos,
     loading,
     error,
+    sincronize: sincronizeTodos
   } = useLocalStorage('TODOS_V1', []);
   
   const [searchValue, setSearchValue] = React.useState('');
@@ -14,7 +15,6 @@ function useTodos(props) {
 
   const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
-
   let searchedTodos = [];
 
   if (!searchValue.length >= 1) {
@@ -63,6 +63,7 @@ function useTodos(props) {
       addTodo,
       openModal,
       setOpenModal,
+      sincronizeTodos
     };
 }
 
